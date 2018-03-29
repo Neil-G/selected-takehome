@@ -44,25 +44,22 @@ class School {
 
 
 class Invitation {
-  constructor({ candidateId, schoolId, text, createdAt }) {
+  constructor({ candidateId, schoolId, createdAt }) {
     this.createdAt = createdAt || moment().format()
     this.id = uuidv1()
     this.candidateId = candidateId
     this.schoolId = schoolId
-    this.text = text
     this.status = 'pending' // enum ['pending' | 'accepted' | rejected ]
-    this.dateResolved = undefined
   }
 }
 
 
 class Message {
-  constructor({ candidateId, schoolId, text, createdAt }) {
+  constructor({ candidateId, schoolId, createdAt }) {
     this.createdAt = createdAt || moment().format()
     this.id = uuidv1()
     this.candidateId = candidateId
     this.schoolId = schoolId
-    this.text = text
     this.readAt = undefined
   }
 }
@@ -110,28 +107,6 @@ class DataBase {
     this[branch][entity.id] = entity
   }
 
-  // delete from the db
-  deleteEntity(branch, entity) {
-
-    // validation
-    if (!branch || !entity) {
-      console.log('MUST PROVIDE a branch and entity')
-      return
-    }
-    this[branch][entity.id] = entity
-  }
-
-  updateEntity(branch, updateFunction) {
-
-    // validation
-    if (!branch || !entity) {
-      console.log('MUST PROVIDE a branch and updateFunction')
-      return
-    }
-
-    this[branch][entity.id] = updateFunction(this[branch][entity.id])
-
-  }
 
   /* Gets all the message id's that are unread and over a day old */
   getCandidateMessagesForReminder(candidateId) {
